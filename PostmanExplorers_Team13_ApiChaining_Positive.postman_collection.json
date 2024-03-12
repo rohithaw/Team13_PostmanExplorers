@@ -183,7 +183,7 @@
 						"exec": [
 							"var batchName= \"March24-PostmanExplorers-SDET-SDET{{$randomInt}}-\" + pm.variables.replaceIn(\"{{$randomInt}}\");",
 							"",
-							"pm.globals.set(\"batchName\", batchName);",
+							"pm.environment.set(\"batchName\", batchName);",
 							"",
 							"",
 							"const batchNoOfClasses = [",
@@ -363,46 +363,46 @@
 							"    roleids = [\"R02\", \"R03\",  \"R01\"];\r",
 							"}\r",
 							"let currentroleid = roleids.shift();\r",
-							"pm.collectionVariables.set(\"roleid\", currentroleid);\r",
-							"pm.collectionVariables.set(\"roleids\", roleids);\r",
+							"pm.environment.set(\"roleid\", currentroleid);\r",
+							"pm.environment.set(\"roleids\", roleids);\r",
 							"\r",
-							"let userVisaStatuses = pm.collectionVariables.get(\"userVisaStatuses\");\r",
+							"let userVisaStatuses = pm.environment.get(\"userVisaStatuses\");\r",
 							"if(!userVisaStatuses || userVisaStatuses.length == 0) {\r",
 							"    userVisaStatuses = [\"Not-Specified\", \"NA\", \"GC-EAD\", \"H4-EAD\", \"H4\",\"H1B\", \"Canada-EAD\", \"Indian-Citizen\", \"US-Citizen\", \"Canada-Citizen\"];\r",
 							"}\r",
 							"let currentuserVisaStatus = userVisaStatuses.shift();\r",
-							"pm.collectionVariables.set(\"UserVisaStatus\", currentuserVisaStatus);\r",
-							"pm.collectionVariables.set(\"userVisaStatuses\", userVisaStatuses);\r",
+							"pm.environment.set(\"UserVisaStatus\", currentuserVisaStatus);\r",
+							"pm.environment.set(\"userVisaStatuses\", userVisaStatuses);\r",
 							"\r",
-							"let userTimeZones = pm.collectionVariables.get(\"userTimeZones\");\r",
+							"let userTimeZones = pm.environment.get(\"userTimeZones\");\r",
 							"if(!userTimeZones || userTimeZones.length == 0) {\r",
 							"    userTimeZones = [\"PST\",\"CST\", \"EST\", \"MST\",\"IST\"];\r",
 							"}\r",
 							"let currentuserTimeZone = userTimeZones.shift();\r",
-							"pm.collectionVariables.set(\"UserTimeZone\", currentuserTimeZone);\r",
-							"pm.collectionVariables.set(\"userTimeZones\", userTimeZones);\r",
+							"pm.environment.set(\"UserTimeZone\", currentuserTimeZone);\r",
+							"pm.environment.set(\"userTimeZones\", userTimeZones);\r",
 							"\r",
-							"let userLocations = pm.collectionVariables.get(\"userLocations\");\r",
+							"let userLocations = pm.environment.get(\"userLocations\");\r",
 							"if(!userLocations || userLocations.length == 0) {\r",
 							"    userLocations = [\"CALIFORNIA\", \"TEXAS\",\"NewYork\",\"ARIZONA\",\"DELHI\"];\r",
 							"}\r",
 							"let currentuserLocation = userLocations.shift();\r",
-							"pm.collectionVariables.set(\"UserLocation\", currentuserLocation);\r",
-							"pm.collectionVariables.set(\"userLocations\", userLocations);\r",
+							"pm.globals.set(\"UserLocation\", currentuserLocation);\r",
+							"pm.globals.set(\"userLocations\", userLocations);\r",
 							"\r",
 							"\r",
-							"pm.collectionVariables.set(\"status\", \"Active\" );\r",
-							"pm.collectionVariables.set(\"UserFirstName\", \"PostmanExplorers\" );\r",
-							"pm.collectionVariables.set(\"UserLastName\", \"Team\" );\r",
-							"pm.collectionVariables.set(\"UserMiddleName\", \"Fantastic\" );\r",
-							"pm.collectionVariables.set(\"UserComments\", \"Creating Roles\" );\r",
-							"pm.collectionVariables.set(\"UserEduPg\", \"Mtech\" );\r",
-							"pm.collectionVariables.set(\"UserEduUg\", \"Btech\" );\r",
-							"pm.collectionVariables.set(\"UserLinkedinUrl\",\"https://www.linkedin.com/in/PostmanExplorers\" );\r",
+							"pm.globals.set(\"status\", \"Active\" );\r",
+							"pm.environment.set(\"UserFirstName\", \"PostmanExplorers\" );\r",
+							"pm.globals.set(\"UserLastName\", \"Team\" );\r",
+							"pm.globals.set(\"UserMiddleName\", \"Fantastic\" );\r",
+							"pm.globals.set(\"UserComments\", \"Creating Roles\" );\r",
+							"pm.globals.set(\"UserEduPg\", \"Mtech\" );\r",
+							"pm.globals.set(\"UserEduUg\", \"Btech\" );\r",
+							"pm.globals.set(\"UserLinkedinUrl\",\"https://www.linkedin.com/in/PostmanExplorers\" );\r",
 							"//pm.collectionVariables.set(\"UserLocation\", \"Texas\" );\r",
-							"pm.collectionVariables.set(\"LoginStatus\", \"Active\" );\r",
-							"pm.collectionVariables.set(\"Password\", \"adminteam13\" );\r",
-							"pm.collectionVariables.set(\"UserRoleStatus\", \"Active\" );\r",
+							"pm.globals.set(\"LoginStatus\", \"Active\" );\r",
+							"pm.globals.set(\"Password\", \"adminteam13\" );\r",
+							"pm.globals.set(\"UserRoleStatus\", \"Active\" );\r",
 							"\r",
 							"//pm.collectionVariables.set(\"Id\", \"1362\");\r",
 							"//var roleids = [ R01, R02,R03];\r",
@@ -1100,14 +1100,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BaseURL}}/batches/batchName/{{UpdatebatchName}}",
+					"raw": "{{BaseURL}}/batches/batchName/{{batchName}}",
 					"host": [
 						"{{BaseURL}}"
 					],
 					"path": [
 						"batches",
 						"batchName",
-						"{{UpdatebatchName}}"
+						"{{batchName}}"
 					]
 				}
 			},
@@ -2293,7 +2293,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"userRoleList\": [\n    \"{{NewRoleId}}\"\n    ]\n}\n",
+					"raw": "{\n  \"userRoleList\": [\n    \"R02\"\n    ]\n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -2429,14 +2429,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{BaseURL}}/users/userLogin/U1666",
+					"raw": "{{BaseURL}}/users/userLogin/U471",
 					"host": [
 						"{{BaseURL}}"
 					],
 					"path": [
 						"users",
 						"userLogin",
-						"U1666"
+						"U471"
 					]
 				}
 			},
@@ -2463,14 +2463,14 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{BaseURL}}/userRoleProgramBatchMap/deleteAll/{{userId}}",
+					"raw": "{{BaseURL}}/userRoleProgramBatchMap/deleteAll/{{userId_env}}",
 					"host": [
 						"{{BaseURL}}"
 					],
 					"path": [
 						"userRoleProgramBatchMap",
 						"deleteAll",
-						"{{userId}}"
+						"{{userId_env}}"
 					]
 				}
 			},
@@ -2626,7 +2626,13 @@
 			"name": "LogoutAdmin",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "{{AdminLogout}}",
+					"host": [
+						"{{AdminLogout}}"
+					]
+				}
 			},
 			"response": []
 		}
@@ -2636,7 +2642,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZGV0b3JnYW5pemVyc0BnbWFpbC5jb20iLCJpYXQiOjE3MTAyMDMwNDIsImV4cCI6MTcxMDIzMTg0Mn0.RDoe4UbxvMNTDoLz7mYQERNkkflDKpta6N08VuIH8j-y-kbY_NTJYPBts6sSrCm7ba43zFmwqE7pOw0GgoHV4Q",
+				"value": "{{token}}",
 				"type": "string"
 			}
 		]
@@ -2656,9 +2662,6 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
-					"",
-					"",
-					"",
 					""
 				]
 			}
