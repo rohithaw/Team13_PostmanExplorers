@@ -1,0 +1,2757 @@
+{
+	"info": {
+		"_postman_id": "37240552-263a-40a0-b4f8-76acefee4b30",
+		"name": "PostmanExplorers_Team13_ApiChaining_Positive",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33411593",
+		"_collection_link": "https://numpy-api-user-learners.postman.co/workspace/PostmanExplorers-Workspace~457da250-7b22-4759-971f-e03c6656e343/collection/33411593-37240552-263a-40a0-b4f8-76acefee4b30?action=share&source=collection_link&creator=33411593"
+	},
+	"item": [
+		{
+			"name": "AdminLogin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData=JSON.parse(responseBody);",
+							"pm.environment.set(\"token\",jsonData.token);",
+							"",
+							"postman.setNextRequest(\"CreateProgram\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"password\": \"{{password}}\",\n  \"userLoginEmailId\": \"{{UserLoginEmailID}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AdminLoginURL}}",
+					"host": [
+						"{{AdminLoginURL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateProgram",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var progName= \"March24-PostmanExplorers-SDET-\" + pm.variables.replaceIn(\"{{$randomInt}}\");\r",
+							"pm.globals.set(\"programname\", progName);\r",
+							"\r",
+							"pm.globals.set(\"programDescription\",\"postman13\");\r",
+							"pm.globals.set(\"programStatus\",\"Active\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('Created');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							"\r",
+							"let responsebody = pm.response.json();\r",
+							"\r",
+							"let dateFormat = /([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))/;\r",
+							"\r",
+							"pm.test(\"Get Program data type of response\",()=>{\r",
+							"\t\t\r",
+							"    pm.expect(responsebody.programId).to.be.a(\"number\");\r",
+							"\tpm.expect(responsebody.programName).to.be.a(\"string\");\r",
+							"\tpm.expect(responsebody.programDescription).to.be.a(\"string\");\r",
+							"\tpm.expect(responsebody.programStatus).to.be.a(\"string\");\r",
+							"    pm.expect(responsebody.creationTime).to.match(dateFormat);\r",
+							"\tpm.expect(responsebody.lastModTime).to.match(dateFormat);\t\t\t\t\t\t\t\t\r",
+							"});\r",
+							"\r",
+							"pm.test('Newly created Program matches request attributes', () => {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.haveOwnProperty('programId');\r",
+							"    pm.expect(jsonData.programName).to.include('March24-PostmanExplorers-SDET-');\r",
+							"    pm.expect(jsonData.programDescription).to.include('postman13');\r",
+							"    pm.expect(jsonData.programStatus).to.include('Active');\r",
+							"})\r",
+							"\r",
+							"var schema = {\r",
+							"    properties: {\r",
+							"        programId: { type: 'number' },\r",
+							"        programName: { type: 'string' },\r",
+							"        programDescription: { type: 'string' },\r",
+							"        programStatus: { type: 'string' },\r",
+							"        creationTime: { type: 'string' },\r",
+							"        lastModTime: { type: 'string' }\r",
+							"    },\r",
+							"    required: [\r",
+							"        'programId',\r",
+							"        'programName',\r",
+							"        'programDescription',\r",
+							"        'programStatus',\r",
+							"        'creationTime',\r",
+							"        'lastModTime'\r",
+							"    ]\r",
+							"};\r",
+							"\r",
+							"pm.test('Schema is valid', () => {\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"})\r",
+							"\r",
+							"//pm.globals.set('programId', pm.response.json().programId)\r",
+							"\r",
+							"//pm.test(pm.variables.replaceIn(' Program ID {{programId}} is created using POST'), () => {\r",
+							"  //  pm.response.to.have.status(201);\r",
+							"//})\r",
+							"\r",
+							"var jsonData=pm.response.json();\r",
+							"var programID=jsonData.programId;\r",
+							"pm.globals.set(\"programId\", programID);\r",
+							"console.log(programID);\r",
+							"\r",
+							"postman.setNextRequest(\"CreateBatch\");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"programDescription\": \"{{programDescription}}\",\r\n   \"programName\": \"{{programname}}\",\r\n  \"programStatus\": \"{{programStatus}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/saveprogram",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"saveprogram"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateBatch",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var batchName= \"March24-PostmanExplorers-SDET-SDET{{$randomInt}}-\" + pm.variables.replaceIn(\"{{$randomInt}}\");",
+							"",
+							"pm.globals.set(\"batchName\", batchName);",
+							"",
+							"",
+							"const batchNoOfClasses = [",
+							"    10,",
+							"    15",
+							"];",
+							"",
+							"const batchDescriptions = [",
+							"    \"Description for SDET\",",
+							"    \"Description for DA\"",
+							"];",
+							"var index=0;",
+							"for(i=0;i<batchDescriptions.length;i++)",
+							"{",
+							"",
+							"    if (batchName.includes(\"SDET\") && batchDescriptions[i].includes(\"SDET\"))",
+							"    {",
+							"        index=i;",
+							"    }",
+							"    else if (batchName.includes(\"DA\") && batchDescriptions[i].includes(\"DA\"))",
+							"    {",
+							"         index=i;",
+							"    }",
+							"}",
+							"",
+							"console.log(pm.globals.set(\"batchNoofClasses\", batchNoOfClasses[index]));",
+							"console.log(pm.globals.set(\"NewBatchDescription\",batchDescriptions[index]));",
+							"",
+							"//let batchDesc = pm.collectionVariables.get(\"batchDesc\");",
+							"//if(!batchDesc || batchDesc.length == 0) {",
+							" //  batchDesc = ['SDET','DA','SMPO','Developer'];",
+							"//}",
+							"//$randomJobDescriptor",
+							"//const batchDesc = ['SDET','DA','SMPO','Developer'];",
+							"",
+							"//const batchNoOfClasses = ['10','12','8','20'];",
+							"",
+							"//if ({{batchName}} == \"SDET\") { // I'm assuming this is a string, not an actual number",
+							"//pm.collectionVariables.set(\"batchDesc\", \"SDET\");",
+							"//console.log(pm.CollectionVariables.get(\"batchDesc\"));",
+							"//}",
+							"//pm.collectionVariables.set(\"batchDescription\", \"SDET\" );",
+							"//pm.collectionVariables.set(\"batchNoOfClasses\", \"8\" );",
+							"pm.collectionVariables.set(\"batchStatus\", \"Active\" );",
+							" "
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Status Code Validation",
+							"pm.test('Status code is 201', () => {",
+							"    pm.response.to.have.status(201);",
+							"})",
+							"",
+							"",
+							"//Check Header is present or not",
+							"pm.test('Content-Type Header is application json', () => {",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+							"})",
+							"",
+							"",
+							"//Check Header Value",
+							"pm.test(\"Content-Type Header is application-json\", () => {",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+							"});",
+							"",
+							"//Check Response Time",
+							"pm.test('Response time is less than 2000ms', () => {",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+							"})",
+							"",
+							"//Validate Response Body",
+							"var jsonData=pm.response.json();",
+							"pm.test(\"Test Data Type for response\",() => {",
+							"    pm.expect(jsonData.programName).to.be.a(\"string\");",
+							"    pm.expect(jsonData.batchId).to.be.a(\"number\");",
+							"    pm.expect(jsonData.batchNoOfClasses).to.be.a(\"number\");",
+							"    pm.expect(jsonData.programId).to.be.a(\"number\");",
+							"    pm.expect(jsonData.batchStatus).to.be.a(\"string\");",
+							"    pm.expect(jsonData.batchDescription).to.be.a(\"string\");",
+							"    pm.expect(jsonData.batchName).to.be.a(\"string\");",
+							"});",
+							"",
+							"",
+							"//JSON SCHEMA Validation",
+							"var schema = {",
+							"    properties: {",
+							"    programId: {",
+							"      type: \"number\",",
+							"    },",
+							"    programName: {",
+							"      type: \"string\",",
+							"    },",
+							"    programDescription: {",
+							"      type: \"string\",",
+							"    },",
+							"    programStatus: {",
+							"      type: \"string\",",
+							"    },",
+							"     creationTime: {",
+							"      type: \"string\",",
+							"    },",
+							"     lastModTime: {",
+							"      type: \"string\",",
+							"    },",
+							"  },",
+							"  required: [",
+							"    \"batchId\",",
+							"    \"batchName\",",
+							"    \"batchDescription\",",
+							"    \"batchStatus\",",
+							"    \"batchNoOfClasses\",",
+							"    \"programId\",",
+							"    \"programName\"",
+							"  ],",
+							"};",
+							"",
+							"",
+							"pm.test(\"Schema is valid\", () => {",
+							"  pm.response.to.have.jsonSchema(schema);",
+							"});",
+							"",
+							"",
+							"var jsonData = pm.response.json();",
+							"var NewBatchID = jsonData.batchId;",
+							"pm.environment.set(\"NewbatchId\",NewBatchID);",
+							"console.log(NewBatchID);",
+							"",
+							"postman.setNextRequest(\"CreateUser\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"batchDescription\": \"{{NewBatchDescription}}\",\n  \"batchName\": \"{{batchName}}\",\n  \"batchNoOfClasses\": {{batchNoofClasses}},\n  \"batchStatus\": \"{{batchStatus}}\",\n  \"programId\": {{programId}}\n }\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/batches",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"batches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateUser",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var random=Math.random().toString(36).substring(2);\r",
+							"var useremail=\"Team13\"+random+\"@gmail.com\";\r",
+							"pm.environment.set(\"email_env\",useremail);\r",
+							"pm.environment.set (\"phone_env\",_.random (10000000000,100));\r",
+							"    \r",
+							"let roleids = pm.collectionVariables.get(\"roleids\");\r",
+							"if(!roleids || roleids.length == 0) {\r",
+							"    roleids = [\"R02\", \"R03\",  \"R01\"];\r",
+							"}\r",
+							"let currentroleid = roleids.shift();\r",
+							"pm.collectionVariables.set(\"roleid\", currentroleid);\r",
+							"pm.collectionVariables.set(\"roleids\", roleids);\r",
+							"\r",
+							"let userVisaStatuses = pm.collectionVariables.get(\"userVisaStatuses\");\r",
+							"if(!userVisaStatuses || userVisaStatuses.length == 0) {\r",
+							"    userVisaStatuses = [\"Not-Specified\", \"NA\", \"GC-EAD\", \"H4-EAD\", \"H4\",\"H1B\", \"Canada-EAD\", \"Indian-Citizen\", \"US-Citizen\", \"Canada-Citizen\"];\r",
+							"}\r",
+							"let currentuserVisaStatus = userVisaStatuses.shift();\r",
+							"pm.collectionVariables.set(\"UserVisaStatus\", currentuserVisaStatus);\r",
+							"pm.collectionVariables.set(\"userVisaStatuses\", userVisaStatuses);\r",
+							"\r",
+							"let userTimeZones = pm.collectionVariables.get(\"userTimeZones\");\r",
+							"if(!userTimeZones || userTimeZones.length == 0) {\r",
+							"    userTimeZones = [\"PST\",\"CST\", \"EST\", \"MST\",\"IST\"];\r",
+							"}\r",
+							"let currentuserTimeZone = userTimeZones.shift();\r",
+							"pm.collectionVariables.set(\"UserTimeZone\", currentuserTimeZone);\r",
+							"pm.collectionVariables.set(\"userTimeZones\", userTimeZones);\r",
+							"\r",
+							"let userLocations = pm.collectionVariables.get(\"userLocations\");\r",
+							"if(!userLocations || userLocations.length == 0) {\r",
+							"    userLocations = [\"CALIFORNIA\", \"TEXAS\",\"NewYork\",\"ARIZONA\",\"DELHI\"];\r",
+							"}\r",
+							"let currentuserLocation = userLocations.shift();\r",
+							"pm.collectionVariables.set(\"UserLocation\", currentuserLocation);\r",
+							"pm.collectionVariables.set(\"userLocations\", userLocations);\r",
+							"\r",
+							"\r",
+							"pm.collectionVariables.set(\"status\", \"Active\" );\r",
+							"pm.collectionVariables.set(\"UserFirstName\", \"PostmanExplorers\" );\r",
+							"pm.collectionVariables.set(\"UserLastName\", \"Team\" );\r",
+							"pm.collectionVariables.set(\"UserMiddleName\", \"Fantastic\" );\r",
+							"pm.collectionVariables.set(\"UserComments\", \"Creating Roles\" );\r",
+							"pm.collectionVariables.set(\"UserEduPg\", \"Mtech\" );\r",
+							"pm.collectionVariables.set(\"UserEduUg\", \"Btech\" );\r",
+							"pm.collectionVariables.set(\"UserLinkedinUrl\",\"https://www.linkedin.com/in/PostmanExplorers\" );\r",
+							"//pm.collectionVariables.set(\"UserLocation\", \"Texas\" );\r",
+							"pm.collectionVariables.set(\"LoginStatus\", \"Active\" );\r",
+							"pm.collectionVariables.set(\"Password\", \"adminteam13\" );\r",
+							"pm.collectionVariables.set(\"UserRoleStatus\", \"Active\" );\r",
+							"\r",
+							"//pm.collectionVariables.set(\"Id\", \"1362\");\r",
+							"//var roleids = [ R01, R02,R03];\r",
+							"//pm.environment.set('roleids', JSON.stringify(roleids));\r",
+							"//let roleids = JSON.parse(pm.environment.get('roleids'));\r",
+							"/*let roleId = pm.environment.get(\"roleId\");\r",
+							"if (!roleId) {\r",
+							"    roleId = \"00\";\r",
+							"roleId++;\r",
+							"roleId = roleId.toString().padStart(2, \"0\");\r",
+							"pm.environment.set(\"roleId\", roleId);\r",
+							"const prefix ='R'; \r",
+							"const result = prefix + roleId;\r",
+							"pm.variables.set(\"roleid\", result);\r",
+							"//var userphone=\"+91 97361525\"+random(2);\r",
+							"//pm.environment.set(\"name_env\",username);\r",
+							"//pm.environment.set(\"phone_env\",userphone);\r",
+							"//var username= \"PostmanExplorer\" + pm.variables.replaceIn(\"{{$randomFirstName}}\");\r",
+							"//pm.globals.set(\"name_env\", username);\r",
+							"//var userphone= \" \" + pm.variables.replaceIn(\"{{$$randomPhoneNumberExt}}\");\r",
+							"//pm.globals.set(\"phone_env\", userphone);\r",
+							"//var username=\" PostmanExplorer\"+pm.variables.replaceIn(\"{{$randomFirstName}}\");*/"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var USERID = jsonData.userId;\r",
+							"pm.environment.set(\"userId_env\",USERID);\r",
+							"console.log(USERID);\r",
+							"\r",
+							"pm.test(\"Update env\", function () {\r",
+							"    var req = JSON.parse(pm.request.body.raw);\r",
+							"    var A=req.userRoleMaps[0].roleId;\r",
+							"    pm.environment.set(\"ROLEID\",A);\r",
+							"    console.log(A);\r",
+							"    //pm.environment.set(\"roleID\", req.userRoleMaps[0].roleId);\r",
+							"});\r",
+							"\r",
+							"pm.test('Status code is 201', () => {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('Created');\r",
+							"});\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"});\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"});\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"var schema = {\r",
+							"    properties: {\r",
+							"        userId: { type: 'string' },\r",
+							"        userFirstName: { type: 'string' },\r",
+							"        userLastName: { type: 'string' },\r",
+							"        userMiddleName: { type: 'string' },\r",
+							"        userPhoneNumber: { type: 'integer' },\r",
+							"        userLocation: { type: 'string' },\r",
+							"        userTimeZone: { type: 'string' },\r",
+							"        userLinkedinUrl: { type: 'string' },\r",
+							"        userEduUg: { type: 'string' },\r",
+							"        userEduPg: { type: 'string' },\r",
+							"        userComments: { type: 'string' },\r",
+							"        userVisaStatus: { type: 'string' },\r",
+							"        userLoginEmail: { type: 'string' }\r",
+							"    },\r",
+							"    'required': [\r",
+							"        'userId',\r",
+							"        'userFirstName',\r",
+							"        'userLastName',\r",
+							"        'userMiddleName',\r",
+							"        'userPhoneNumber',\r",
+							"        'userLocation',\r",
+							"        'userTimeZone',\r",
+							"        'userLinkedinUrl',\r",
+							"        'userEduUg',\r",
+							"        'userEduPg',\r",
+							"        'userComments',\r",
+							"        'userVisaStatus',\r",
+							"        'userLoginEmail'\r",
+							"    ]\r",
+							"};\r",
+							"\r",
+							"pm.test('Schema is valid', () => {\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"});\r",
+							"let responsebody = pm.response.json();\r",
+							"pm.test('Get user data type of response', () => {\r",
+							"    pm.expect(jsonData.userFirstName).to.be.a('string');\r",
+							"    pm.expect(jsonData.userLastName).to.be.a('string');\r",
+							"    pm.expect(jsonData.userLinkedinUrl).to.be.a('string');\r",
+							"    pm.expect(jsonData.userLoginEmail).to.be.a('string');\r",
+							"    pm.expect(jsonData.userEduPg).to.be.a('string');\r",
+							"    pm.expect(jsonData.userEduUg).to.be.a('string');\r",
+							"    pm.expect(jsonData.userTimeZone).to.be.a('string');\r",
+							"   pm.expect(jsonData.userComments).to.be.a('string');\r",
+							"   pm.expect(jsonData.userMiddleName).to.be.a('string');\r",
+							"      \r",
+							"});\r",
+							"\r",
+							"pm.test('Newly created user matches request attributes', () => {\r",
+							"     var jsonData = pm.response.json();\r",
+							"      pm.expect(jsonData).to.haveOwnProperty('userId');\r",
+							"    pm.expect(jsonData.userFirstName).to.include('Postman');\r",
+							"    pm.expect(jsonData.userLastName).to.include('T');\r",
+							"    pm.expect(jsonData.userLinkedinUrl).to.include('linkedin');\r",
+							"    pm.expect(jsonData.userTimeZone).to.include('ST');\r",
+							"    pm.expect(jsonData.userEduUg).to.include('B');\r",
+							"    pm.expect(jsonData.userEduPg).to.include('M');\r",
+							"    pm.expect(jsonData.userLoginEmail).to.include('gmail');\r",
+							"     pm.expect(jsonData.userComments).to.include('Roles');\r",
+							"      pm.expect(jsonData.userMiddleName).to.include('Fan');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"postman.setNextRequest(\"GetAllPrograms\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userComments\": \"{{UserComments}}\",\n  \"userEduPg\": \"{{UserEduPg}}\",\n  \"userEduUg\": \"{{UserEduUg}}\",\n  \"userFirstName\": \"{{UserFirstName}}\",\n  \"userId\": \"string\",\n  \"userLastName\": \"{{UserLastName}}\",\n  \"userLinkedinUrl\": \"{{UserLinkedinUrl}}\",\n  \"userLocation\": \"{{UserLocation}}\",\n  \"userLogin\": {\n    \"loginStatus\": \"{{LoginStatus}}\",\n    \"password\": \"{{Password}}\",\n    \"roleIds\": [\n      \"string\"\n    ],\n    \"status\": \"{{status}}\",\n    \"userLoginEmail\": \"{{email_env}}\"\n          },\n  \"userMiddleName\": \"{{UserMiddleName}}\",\n  \"userPhoneNumber\": \"{{phone_env}}\",\n  \"userRoleMaps\": [\n    {\n      \"roleId\": \"{{roleid}}\",\n      \"userRoleStatus\": \"{{UserRoleStatus}}\"\n    }\n  ],\n  \"userTimeZone\": \"{{UserTimeZone}}\",\n  \"userVisaStatus\": \"{{UserVisaStatus}}\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users/roleStatus",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"roleStatus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllPrograms",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", ()=> {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check Status Text\",()=> {\r",
+							"    pm.response.to.have.status('OK');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is present\",()=> {\r",
+							" pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is application json\",()=> {\r",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');\r",
+							"});\r",
+							"\t\t\t\t\t\t\t\t\t\r",
+							"pm.test(\"Response time is less than 1000ms\",()=>{\r",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);\r",
+							"});\r",
+							"\r",
+							"let responsebody=pm.response.json();\r",
+							"\r",
+							"pm.test(\"Get Program data type of response\",()=>{\r",
+							"\r",
+							"    \t\t\r",
+							"\tpm.expect(responsebody[0].programName).to.be.a(\"string\");\r",
+							"\tpm.expect(responsebody[0].programDescription).to.be.a(\"string\");\r",
+							"\tpm.expect(responsebody[0].programStatus).to.be.a(\"string\");\r",
+							"\t\t\t\t\t\t\t\t\t\r",
+							"});\r",
+							"\r",
+							"postman.setNextRequest(\"GetAllProgramwithUsers\");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/allProgramsWithUsers",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"allProgramsWithUsers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllProgramwithUsers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", ()=> {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check Status Text\",()=> {\r",
+							"    pm.response.to.have.status('OK');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is present\",()=> {\r",
+							" pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is application json\",()=> {\r",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');\r",
+							"});\r",
+							"\t\t\t\t\t\t\t\t\t\r",
+							"pm.test(\"Response time is less than 1000ms\",()=>{\r",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);\r",
+							"});\r",
+							"\r",
+							"let responsebody=pm.response.json();\r",
+							"\r",
+							"pm.test(\"Get Program data type of response\",()=>{\r",
+							"\r",
+							"    \t\t\r",
+							"\tpm.expect(responsebody[0].programName).to.be.a(\"string\");\r",
+							"\tpm.expect(responsebody[0].programDescription).to.be.a(\"string\");\r",
+							"\tpm.expect(responsebody[0].programStatus).to.be.a(\"string\");\r",
+							"\t\t\t\t\t\t\t\t\t\r",
+							"});\r",
+							"\r",
+							"\r",
+							"postman.setNextRequest(\"GetProgByProgramId\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/allProgramsWithUsers",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"allProgramsWithUsers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetProgByProgramId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", ()=> {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check Status Text\",()=> {\r",
+							"    pm.response.to.have.status('OK');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is present\",()=> {\r",
+							" pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is application json\",()=> {\r",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');\r",
+							"});\r",
+							"\t\t\t\t\t\t\t\t\t\r",
+							"pm.test(\"Response time is less than 1000ms\",()=>{\r",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);\r",
+							"});\r",
+							"\r",
+							"let responsebody=pm.response.json();\r",
+							"pm.test(\"Get Program data type of response\",()=>{\r",
+							"\t\t\r",
+							"\tpm.expect(responsebody.programName).to.be.a(\"string\");\r",
+							"\tpm.expect(responsebody.programDescription).to.be.a(\"string\");\r",
+							"\tpm.expect(responsebody.programStatus).to.be.a(\"string\");\r",
+							"\t\t\t\t\t\t\t\t\t\r",
+							"});\r",
+							"\r",
+							"\r",
+							"postman.setNextRequest(\"GetAllBatches\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/programs/{{programId}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"programs",
+						"{{programId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllBatches",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"//Status Code Validation\r",
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"\r",
+							"//Check Header is present or not\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"\r",
+							"//Check Header Value\r",
+							"pm.test(\"Content-Type Header is application-json\", () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"});\r",
+							"\r",
+							"//Check Response Time\r",
+							"pm.test('Response time is less than 2000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"})\r",
+							"\r",
+							"//Validate Response Body\r",
+							"var jsonData=pm.response.json();\r",
+							"pm.test(\"Test Data Type for response\",() => {\r",
+							"    pm.expect(jsonData[0].programName).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData[0].batchId).to.be.a(\"number\");\r",
+							"    pm.expect(jsonData[0].batchNoOfClasses).to.be.a(\"number\");\r",
+							"    pm.expect(jsonData[0].programId).to.be.a(\"number\");\r",
+							"    pm.expect(jsonData[0].batchStatus).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData[0].batchDescription).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData[0].batchName).to.be.a(\"string\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"//JSON SCHEMA Validation\r",
+							"var schema = {\r",
+							"    properties: {\r",
+							"    programId: {\r",
+							"      type: \"number\",\r",
+							"    },\r",
+							"    programName: {\r",
+							"      type: \"string\",\r",
+							"    },\r",
+							"    programDescription: {\r",
+							"      type: \"string\",\r",
+							"    },\r",
+							"    programStatus: {\r",
+							"      type: \"string\",\r",
+							"    },\r",
+							"     creationTime: {\r",
+							"      type: \"string\",\r",
+							"    },\r",
+							"     lastModTime: {\r",
+							"      type: \"string\",\r",
+							"    },\r",
+							"  },\r",
+							"  required: [\r",
+							"    \"batchId\",\r",
+							"    \"batchName\",\r",
+							"    \"batchDescription\",\r",
+							"    \"batchStatus\",\r",
+							"    \"batchNoOfClasses\",\r",
+							"    \"programId\",\r",
+							"    \"programName\"\r",
+							"  ],\r",
+							"};\r",
+							"\r",
+							"\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"  pm.response.to.have.jsonSchema(schema);\r",
+							"});\r",
+							"\r",
+							"//Validate Response body content\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"var filteredData = jsonData.filter(function(item) {\r",
+							"  if (!item.batchName) {\r",
+							"    return\r",
+							"  }\r",
+							"  return item.batchName.includes(\"March24-PostmanExplo\");\r",
+							"});\r",
+							"console.log(\"filteredData\", filteredData);\r",
+							"\r",
+							"\r",
+							"postman.setNextRequest(\"BatchbyProgramID\");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/batches",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"batches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BatchbyProgramID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"// Removed redundant status text test\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							"\r",
+							"let responsebody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Get Batch data type of response\",()=>{\r",
+							"    pm.expect(responsebody[0].batchDescription).to.be.a(\"string\");\r",
+							"    pm.expect(responsebody[0].batchId).to.be.a(\"number\");\r",
+							"    pm.expect(responsebody[0].batchName).to.be.a(\"string\");\r",
+							"    pm.expect(responsebody[0].batchNoOfClasses).to.be.a(\"number\");\r",
+							"    pm.expect(responsebody[0].batchStatus).to.be.a(\"string\");\r",
+							"    pm.expect(responsebody[0].programId).to.be.a(\"number\");\r",
+							"    pm.expect(responsebody[0].programName).to.be.a(\"string\");\r",
+							"   \r",
+							"});\r",
+							"\r",
+							"\r",
+							"postman.setNextRequest(\"BatchbyBatchID\");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/batches/program/{{programId}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"batches",
+						"program",
+						"{{programId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BatchbyBatchID",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"// Removed redundant status text test\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							"\r",
+							"let responsebody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Get Batch data type of response\",()=>{\r",
+							"    pm.expect(responsebody.batchDescription).to.be.a(\"string\");\r",
+							"    pm.expect(responsebody.batchId).to.be.a(\"number\");\r",
+							"    pm.expect(responsebody.batchName).to.be.a(\"string\");\r",
+							"    pm.expect(responsebody.batchNoOfClasses).to.be.a(\"number\");\r",
+							"    pm.expect(responsebody.batchStatus).to.be.a(\"string\");\r",
+							"    pm.expect(responsebody.programId).to.be.a(\"number\");\r",
+							"    pm.expect(responsebody.programName).to.be.a(\"string\");\r",
+							"   \r",
+							"});\r",
+							"\r",
+							"\r",
+							"var schema = {\r",
+							"  //\"$schema\": \"http://json-schema.org/draft-04/schema#\",\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"batchId\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"batchName\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"batchDescription\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"batchStatus\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"batchNoOfClasses\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"programId\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"programName\": {\r",
+							"      \"type\": \"string\"\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"batchId\",\r",
+							"    \"batchName\",\r",
+							"    \"batchDescription\",\r",
+							"    \"batchStatus\",\r",
+							"    \"batchNoOfClasses\",\r",
+							"    \"programId\",\r",
+							"    \"programName\"\r",
+							"  ]\r",
+							"};\r",
+							"\r",
+							"\r",
+							"pm.test('Schema is valid', () => {\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"})\r",
+							"\r",
+							"\r",
+							"postman.setNextRequest(\"BatchbyBatchName\");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/batches/batchId/{{NewbatchId}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"batches",
+						"batchId",
+						"{{NewbatchId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BatchbyBatchName",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"// Removed redundant status text test\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							"\r",
+							"postman.setNextRequest(\"GetAllUsersDetails\");\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/batches/batchName/{{UpdatebatchName}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"batches",
+						"batchName",
+						"{{UpdatebatchName}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllUsersDetails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", ()=> {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check Status Text\",()=> {\r",
+							"    pm.response.to.have.status('OK');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is present\",()=> {\r",
+							" pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is application json\",()=> {\r",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');\r",
+							"});\r",
+							"\t\t\t\t\t\t\t\t\t\r",
+							"pm.test(\"Response time is less than 1000ms\",()=>{\r",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"postman.setNextRequest(\"GetAllUsersWithRoles\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/users",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllUsersWithRoles",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", ()=> {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check Status Text\",()=> {\r",
+							"    pm.response.to.have.status('OK');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is present\",()=> {\r",
+							" pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is application json\",()=> {\r",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');\r",
+							"});\r",
+							"\t\t\t\t\t\t\t\t\t\r",
+							"pm.test(\"Response time is less than 1000ms\",()=>{\r",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);\r",
+							"});\r",
+							"\r",
+							"postman.setNextRequest(\"GetAllUserRolesDetails\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/roles",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"roles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllUserRolesDetails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", ()=> {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check Status Text\",()=> {\r",
+							"    pm.response.to.have.status('OK');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is present\",()=> {\r",
+							" pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is application json\",()=> {\r",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');\r",
+							"});\r",
+							"\t\t\t\t\t\t\t\t\t\r",
+							"pm.test(\"Response time is less than 1000ms\",()=>{\r",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"postman.setNextRequest(\"GetUsersByRoleId\");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/users/roles",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"roles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUsersByRoleId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 200\", ()=> {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check Status Text\",()=> {\r",
+							"    pm.response.to.have.status('OK');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is present\",()=> {\r",
+							" pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is application json\",()=> {\r",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');\r",
+							"});\r",
+							"\t\t\t\t\t\t\t\t\t\r",
+							"pm.test(\"Response time is less than 1000ms\",()=>{\r",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);\r",
+							"});\r",
+							"\r",
+							"postman.setNextRequest(\"GetAllTypeOfUsers\");\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/users/roles/{{ROLEID}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"roles",
+						"{{ROLEID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllTypeOfUsers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", ()=> {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check Status Text\",()=> {\r",
+							"    pm.response.to.have.status('OK');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is present\",()=> {\r",
+							" pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is application json\",()=> {\r",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');\r",
+							"});\r",
+							"\t\t\t\t\t\t\t\t\t\r",
+							"pm.test(\"Response time is less than 1000ms\",()=>{\r",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"postman.setNextRequest(\"GetUserByRoleId V2\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/users/byStatus",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"byStatus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserByRoleId V2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", ()=> {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check Status Text\",()=> {\r",
+							"    pm.response.to.have.status('OK');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is present\",()=> {\r",
+							" pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is application json\",()=> {\r",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');\r",
+							"});\r",
+							"\t\t\t\t\t\t\t\t\t\r",
+							"pm.test(\"Response time is less than 1000ms\",()=>{\r",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"postman.setNextRequest(\"GetActiveUser\");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/v2/users",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"v2",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetActiveUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", ()=> {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check Status Text\",()=> {\r",
+							"    pm.response.to.have.status('OK');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is present\",()=> {\r",
+							" pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is application json\",()=> {\r",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');\r",
+							"});\r",
+							"\t\t\t\t\t\t\t\t\t\r",
+							"pm.test(\"Response time is less than 1000ms\",()=>{\r",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"postman.setNextRequest(\"GetUserInfoByUserIDChaining\");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/users/activeUsers",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"activeUsers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserInfoByUserIDChaining",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", ()=> {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check Status Text\",()=> {\r",
+							"    pm.response.to.have.status('OK');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is present\",()=> {\r",
+							" pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is application json\",()=> {\r",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');\r",
+							"});\r",
+							"\t\t\t\t\t\t\t\t\t\r",
+							"pm.test(\"Response time is less than 1000ms\",()=>{\r",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);\r",
+							"});\r",
+							"\r",
+							"/*let responsebody = pm.response.json();\r",
+							"pm.test('Get user data type of response', () => {\r",
+							"    pm.expect(jsonData.userFirstName).to.be.a('string');\r",
+							"    pm.expect(jsonData.userLastName).to.be.a('string');\r",
+							"    pm.expect(jsonData.userLinkedinUrl).to.be.a('string');\r",
+							"    pm.expect(jsonData.userLoginEmail).to.be.a('string');\r",
+							"    pm.expect(jsonData.userEduPg).to.be.a('string');\r",
+							"    pm.expect(jsonData.userEduUg).to.be.a('string');\r",
+							"    pm.expect(jsonData.userTimeZone).to.be.a('string');\r",
+							"   pm.expect(jsonData.userComments).to.be.a('string');\r",
+							"   pm.expect(jsonData.userMiddleName).to.be.a('string');\r",
+							"      \r",
+							"});*/\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"//validating json fields in the response\r",
+							"//pm.test(\"values of json fields\",()=>{\r",
+							"//var jsonData=pm.response.json();\r",
+							"//pm.expect(jsonData).to.haveOwnProperty(\"userId\");\r",
+							"\r",
+							"    //let jsonData = pm.response.json();\r",
+							"    //var A=JSON.stringify(jsonData);\r",
+							"\r",
+							"// Variables and JSON Keys are case sensitive!\r",
+							"//pm.collectionVariables.set(\"responseA\", JSON.stringify(jsonData));\r",
+							"//pm.expect(A.userId).to.eql(pm.environment.get(\"userId_env\"));\r",
+							"//pm.expect(jsonData.userLoginEmail).to.eql(pm.environment.get(\"email_env\"));\r",
+							"//pm.expect(jsonData.userPhoneNumber).to.eql(pm.environment.get(\"phone_env\"));\r",
+							"//pm.expect(jsonData.userFirstName).to.eql(pm.environment.get(\"UserFirstName\"));\r",
+							"//});\r",
+							"\r",
+							"\r",
+							"postman.setNextRequest(\"UpdateUserRoleBatchProgStatus\");\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/users/{{userId_env}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"{{userId_env}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateUserRoleBatchProgStatus",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", ()=> {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Check Status Text\",()=> {",
+							"    pm.response.to.have.status('OK');",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is present\",()=> {",
+							" pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is application json\",()=> {",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');",
+							"});",
+							"\t\t\t\t\t\t\t\t\t",
+							"pm.test(\"Response time is less than 1000ms\",()=>{",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"postman.setNextRequest(\"GetUserroleBatchProgDetails\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"programId\": {{programId}},\n  \"roleId\": \"{{roleid}}\",\n  \"userId\": \"string\",\n  \"userRoleProgramBatches\": [\n    {\n      \"batchId\": {{NewbatchId}},\n      \"userRoleProgramBatchStatus\": \"Active\"\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users/roleProgramBatchStatus/{{userId_env}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"roleProgramBatchStatus",
+						"{{userId_env}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserroleBatchProgDetails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"// Removed redundant status text test",
+							"",
+							"pm.test('Content-Type Header is application json', () => {",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+							"})",
+							"",
+							"pm.test('Response time is less than 1000ms', () => {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"})",
+							"",
+							"postman.setNextRequest(\"GetAssignedProgBatchbyUserID\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/userRoleProgramBatchMap",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"userRoleProgramBatchMap"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAssignedProgBatchbyUserID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", ()=> {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Check Status Text\",()=> {",
+							"    pm.response.to.have.status('OK');",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is present\",()=> {",
+							" pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is application json\",()=> {",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');",
+							"});",
+							"\t\t\t\t\t\t\t\t\t",
+							"pm.test(\"Response time is less than 1000ms\",()=>{",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"postman.setNextRequest(\"GetUserByProgramBatches\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/userRoleProgramBatchMap/{{userId_env}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"userRoleProgramBatchMap",
+						"{{userId_env}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserByProgramBatches",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test('Status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"// Removed redundant status text test",
+							"",
+							"pm.test('Content-Type Header is application json', () => {",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+							"})",
+							"",
+							"pm.test('Response time is less than 1000ms', () => {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"})",
+							"",
+							"",
+							"",
+							"",
+							"postman.setNextRequest(\"GetUsersForProgram\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/users/programBatch/{{NewbatchId}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"programBatch",
+						"{{NewbatchId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUsersForProgram",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 200\", ()=> {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check Status Text\",()=> {\r",
+							"    pm.response.to.have.status('OK');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is present\",()=> {\r",
+							" pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is application json\",()=> {\r",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');\r",
+							"});\r",
+							"\t\t\t\t\t\t\t\t\t\r",
+							"pm.test(\"Response time is less than 1000ms\",()=>{\r",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);\r",
+							"});\r",
+							"\r",
+							"postman.setNextRequest(\"UpdateByProgName\");\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/users/programs/{{programId}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"programs",
+						"{{programId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateByProgName",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"Update_progName\", pm.globals.get(\"programname\")+ \"_updated\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('OK');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							"\r",
+							"let responsebody = pm.response.json();\r",
+							"\r",
+							"let dateFormat = /([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))/;\r",
+							"\r",
+							"pm.test(\"Get Program data type of response\",()=>{\r",
+							"\t\t\r",
+							"    pm.expect(responsebody.programId).to.be.a(\"number\");\r",
+							"\tpm.expect(responsebody.programName).to.be.a(\"string\");\r",
+							"\tpm.expect(responsebody.programDescription).to.be.a(\"string\");\r",
+							"\tpm.expect(responsebody.programStatus).to.be.a(\"string\");\r",
+							"    pm.expect(responsebody.creationTime).to.match(dateFormat);\r",
+							"\tpm.expect(responsebody.lastModTime).to.match(dateFormat);\t\t\t\t\t\t\t\t\r",
+							"});\r",
+							"\r",
+							"pm.test('Newly created Program matches request attributes', () => {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.haveOwnProperty('programId');\r",
+							"    pm.expect(jsonData.programName).to.include('March24-PostmanExplorers-SDET-');\r",
+							"    pm.expect(jsonData.programDescription).to.include('postman13');\r",
+							"    pm.expect(jsonData.programStatus).to.include('Active');\r",
+							"})\r",
+							"\r",
+							"var schema = {\r",
+							"    properties: {\r",
+							"        programId: { type: 'number' },\r",
+							"        programName: { type: 'string' },\r",
+							"        programDescription: { type: 'string' },\r",
+							"        programStatus: { type: 'string' },\r",
+							"        creationTime: { type: 'string' },\r",
+							"        lastModTime: { type: 'string' }\r",
+							"    },\r",
+							"    required: [\r",
+							"        'programId',\r",
+							"        'programName',\r",
+							"        'programDescription',\r",
+							"        'programStatus',\r",
+							"        'creationTime',\r",
+							"        'lastModTime'\r",
+							"    ]\r",
+							"};\r",
+							"\r",
+							"pm.test('Schema is valid', () => {\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"})\r",
+							"\r",
+							"postman.setNextRequest(\"UpdateByProgID\");\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"programDescription\": \"{{programDescription}}\",\r\n   \"programName\": \"{{Update_progName}}\",\r\n  \"programStatus\": \"{{programStatus}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/program/{{programname}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"program",
+						"{{programname}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateByProgID",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var progName2= \"March24-PostmanExplorers-SDET-\" + pm.variables.replaceIn(\"{{$randomInt}}\");\r",
+							"pm.globals.set(\"updatedprogramname\", progName2);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('OK');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							"\r",
+							"let responsebody = pm.response.json();\r",
+							"\r",
+							"let dateFormat = /([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))/;\r",
+							"\r",
+							"pm.test(\"Get Program data type of response\",()=>{\r",
+							"\t\t\r",
+							"    pm.expect(responsebody.programId).to.be.a(\"number\");\r",
+							"\tpm.expect(responsebody.programName).to.be.a(\"string\");\r",
+							"\tpm.expect(responsebody.programDescription).to.be.a(\"string\");\r",
+							"\tpm.expect(responsebody.programStatus).to.be.a(\"string\");\r",
+							"    pm.expect(responsebody.creationTime).to.match(dateFormat);\r",
+							"\tpm.expect(responsebody.lastModTime).to.match(dateFormat);\t\t\t\t\t\t\t\t\r",
+							"});\r",
+							"\r",
+							"pm.test('Newly created Program matches request attributes', () => {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.haveOwnProperty('programId');\r",
+							"    pm.expect(jsonData.programName).to.include('March24-PostmanExplorers-SDET-');\r",
+							"    pm.expect(jsonData.programDescription).to.include('postman13');\r",
+							"    pm.expect(jsonData.programStatus).to.include('Active');\r",
+							"})\r",
+							"\r",
+							"var schema = {\r",
+							"    properties: {\r",
+							"        programId: { type: 'number' },\r",
+							"        programName: { type: 'string' },\r",
+							"        programDescription: { type: 'string' },\r",
+							"        programStatus: { type: 'string' },\r",
+							"        creationTime: { type: 'string' },\r",
+							"        lastModTime: { type: 'string' }\r",
+							"    },\r",
+							"    required: [\r",
+							"        'programId',\r",
+							"        'programName',\r",
+							"        'programDescription',\r",
+							"        'programStatus',\r",
+							"        'creationTime',\r",
+							"        'lastModTime'\r",
+							"    ]\r",
+							"};\r",
+							"\r",
+							"pm.test('Schema is valid', () => {\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"})\r",
+							"\r",
+							"postman.setNextRequest(\"UpdateBatchwithvalidBatchID\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"programDescription\": \"{{programDescription}}\",\r\n   \"programName\": \"{{updatedprogramname}}\",\r\n  \"programStatus\": \"{{programStatus}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/putprogram/{{programId}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"putprogram",
+						"{{programId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateBatchwithvalidBatchID",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var UpdatebatchName= \"March24-PostmanExplorers-SDET-SDET01-\" + pm.variables.replaceIn(\"{{$randomInt}}\");\r",
+							"pm.globals.set(\"UpdatebatchName\", UpdatebatchName);\r",
+							"\r",
+							"//pm.collectionVariables.set(\"UpdatebatchNoOfClasses\", UpdatebatchNoOfClasses );\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Status Code Validation",
+							"pm.test('Status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"",
+							"//Check Header is present or not",
+							"pm.test('Content-Type Header is application json', () => {",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+							"})",
+							"",
+							"",
+							"//Check Header Value",
+							"pm.test(\"Content-Type Header is application-json\", () => {",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+							"});",
+							"",
+							"//Check Response Time",
+							"pm.test('Response time is less than 2000ms', () => {",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+							"})",
+							"",
+							"//Validate Response Body",
+							"var jsonData=pm.response.json();",
+							"pm.test(\"Test Data Type for response\",() => {",
+							"    pm.expect(jsonData.programName).to.be.a(\"string\");",
+							"    pm.expect(jsonData.batchId).to.be.a(\"number\");",
+							"    pm.expect(jsonData.batchNoOfClasses).to.be.a(\"number\");",
+							"    pm.expect(jsonData.programId).to.be.a(\"number\");",
+							"    pm.expect(jsonData.batchStatus).to.be.a(\"string\");",
+							"    pm.expect(jsonData.batchDescription).to.be.a(\"string\");",
+							"    pm.expect(jsonData.batchName).to.be.a(\"string\");",
+							"});",
+							"",
+							"",
+							"//JSON SCHEMA Validation",
+							"var schema = {",
+							"    properties: {",
+							"    programId: {",
+							"      type: \"number\",",
+							"    },",
+							"    programName: {",
+							"      type: \"string\",",
+							"    },",
+							"    programDescription: {",
+							"      type: \"string\",",
+							"    },",
+							"    programStatus: {",
+							"      type: \"string\",",
+							"    },",
+							"     creationTime: {",
+							"      type: \"string\",",
+							"    },",
+							"     lastModTime: {",
+							"      type: \"string\",",
+							"    },",
+							"  },",
+							"  required: [",
+							"    \"batchId\",",
+							"    \"batchName\",",
+							"    \"batchDescription\",",
+							"    \"batchStatus\",",
+							"    \"batchNoOfClasses\",",
+							"    \"programId\",",
+							"    \"programName\"",
+							"  ],",
+							"};",
+							"",
+							"",
+							"pm.test(\"Schema is valid\", () => {",
+							"  pm.response.to.have.jsonSchema(schema);",
+							"});",
+							"",
+							"postman.setNextRequest(\"UpdateUser\");",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"batchDescription\": \"{{batchDescription}}\",\r\n  \"batchId\": {{NewbatchId}},\r\n  \"batchName\": \"{{UpdatebatchName}}\",\r\n  \"batchNoOfClasses\": {{batchNoofClasses}},\r\n  \"batchStatus\": \"{{batchStatus}}\",\r\n  \"programId\": {{programId}}\r\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/batches/{{NewbatchId}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"batches",
+						"{{NewbatchId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateUser",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"UserLastName\", \"Workspace\" );\r",
+							"pm.collectionVariables.set(\"UserMiddleName\", \"F\" );\r",
+							"pm.collectionVariables.set(\"UserComments\", \"All the Best\" );\r",
+							"pm.collectionVariables.set(\"UserEduPg\", \"MSC\" );\r",
+							"pm.collectionVariables.set(\"UserEduUg\", \"BSC\" );\r",
+							"pm.collectionVariables.set(\"UserLinkedinUrl\",\"https://www.linkedin.com/in/PostmanExplorers/active\" );\r",
+							"pm.collectionVariables.set(\"UserFirstName\", \"PExplorers13\");\r",
+							"pm.collectionVariables.set(\"UserLocation\", \"Connectcut\" );\r",
+							"pm.collectionVariables.set(\"UserTimeZone\", \"EST\" );\r",
+							"pm.environment.set (\"phone_env\",_.random (10000000000,100));\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", ()=> {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is present\",()=> {\r",
+							" pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is application json\",()=> {\r",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');\r",
+							"});\r",
+							"\t\t\t\t\t\t\t\t\t\r",
+							"pm.test(\"Response time is less than 1000ms\",()=>{\r",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"postman.setNextRequest(\"UpdateUserRoleID\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userComments\": \"{{UserComments}}\",\r\n  \"userEduPg\": \"{{UserEduPg}}\",\r\n  \"userEduUg\": \"{{UserEduUg}}\",\r\n  \"userFirstName\": \"{{UserFirstName}}\",\r\n  \"userId\": \"string\",\r\n  \"userLastName\": \"{{UserLastName}}\",\r\n  \"userLinkedinUrl\": \"{{UserLinkedinUrl}}\",\r\n  \"userLocation\": \"{{UserLocation}}\",\r\n    \"userMiddleName\": \"{{UserMiddleName}}\",\r\n  \"userPhoneNumber\": \"{{phone_env}}\",\r\n  \"userTimeZone\": \"{{UserTimeZone}}\",\r\n  \"userVisaStatus\": \"{{UserVisaStatus}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users/{{userId_env}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"{{userId_env}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateUserRoleID",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let roleids = pm.collectionVariables.get(\"roleids\");",
+							"if(!roleids || roleids.length == 0) {",
+							"    roleids = [\"R02\", \"R03\",  \"R01\"];",
+							"}",
+							"let currentroleid = roleids.shift();",
+							"pm.collectionVariables.set(\"NewRoleId\", currentroleid);",
+							"//pm.collectionVariables.set(\"roleids\", roleids);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", ()=> {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is present\",()=> {",
+							" pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"\t\t\t\t\t\t\t\t\t",
+							"pm.test(\"Response time is less than 1000ms\",()=>{",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);",
+							"});",
+							"",
+							"postman.setNextRequest(\"UpdateUserRoleStatus\");",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userRoleList\": [\n    \"{{NewRoleId}}\"\n    ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users/roleId/{{userId_env}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"roleId",
+						"{{userId_env}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateUserRoleStatus",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"updateRoleStatus\",\"Inactive\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", ()=> {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is present\",()=> {",
+							" pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"",
+							"\t\t\t\t\t\t\t\t\t",
+							"pm.test(\"Response time is less than 1000ms\",()=>{",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);",
+							"});",
+							"",
+							"",
+							"postman.setNextRequest(\"UpdateUserLoginStatus\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"roleId\": \"{{NewRoleId}}\",\n  \"userRoleStatus\": \"{{updateRoleStatus}}\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users/roleStatus/{{userId_env}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"roleStatus",
+						"{{userId_env}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateUserLoginStatus",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var random=Math.random().toString(36).substring(2);",
+							"var useremail=\"Team13\"+random+\"@gmail.com\";",
+							"pm.environment.set(\"NewemailId\",useremail);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", ()=> {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is present\",()=> {",
+							" pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"",
+							"\t\t\t\t\t\t\t\t\t",
+							"pm.test(\"Response time is less than 1000ms\",()=>{",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);",
+							"});",
+							"",
+							"",
+							"postman.setNextRequest(\"DelProgBatchbyUserID\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"loginStatus\": \"Active\",\n  \"password\": \"adminteam13\",\n  \"roleIds\": [\n    \"R03\"\n  ],\n  \"status\": \"Active\",\n  \"userLoginEmail\": \"Team13_postexp8@gmail.com\"\n}\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users/userLogin/U1666",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"userLogin",
+						"U1666"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DelProgBatchbyUserID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"postman.setNextRequest(\"DeleteUser\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/userRoleProgramBatchMap/deleteAll/{{userId}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"userRoleProgramBatchMap",
+						"deleteAll",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.environment.unset(\"userId_env\");\r",
+							"pm.environment.unset(\"username_env\");\r",
+							"pm.environment.unset(\"useremail_env\");\r",
+							"pm.environment.unset(\"userphone_env\");\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"postman.setNextRequest(\"DeleteBatchByID\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/users/{{userId_env}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"{{userId_env}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteBatchByID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"postman.setNextRequest(\"DeleteProgByProgName\");",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/batches/{{NewbatchId}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"batches",
+						"{{NewbatchId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteProgByProgName",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"postman.setNextRequest(\"DeleteProgByProgID\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/deletebyprogname/{{updatedprogramname}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"deletebyprogname",
+						"{{updatedprogramname}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteProgByProgID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"postman.setNextRequest(\"LogoutAdmin\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/deletebyprogid/{{programId}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"deletebyprogid",
+						"{{programId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LogoutAdmin",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZGV0b3JnYW5pemVyc0BnbWFpbC5jb20iLCJpYXQiOjE3MTAyMDMwNDIsImV4cCI6MTcxMDIzMTg0Mn0.RDoe4UbxvMNTDoLz7mYQERNkkflDKpta6N08VuIH8j-y-kbY_NTJYPBts6sSrCm7ba43zFmwqE7pOw0GgoHV4Q",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"",
+					"",
+					"",
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "batchStatus",
+			"value": ""
+		},
+		{
+			"key": "Update_progName",
+			"value": ""
+		},
+		{
+			"key": "roleid",
+			"value": ""
+		},
+		{
+			"key": "roleids",
+			"value": ""
+		},
+		{
+			"key": "UserVisaStatus",
+			"value": ""
+		},
+		{
+			"key": "userVisaStatuses",
+			"value": ""
+		},
+		{
+			"key": "UserTimeZone",
+			"value": ""
+		},
+		{
+			"key": "userTimeZones",
+			"value": ""
+		},
+		{
+			"key": "UserLocation",
+			"value": ""
+		},
+		{
+			"key": "userLocations",
+			"value": ""
+		},
+		{
+			"key": "status",
+			"value": ""
+		},
+		{
+			"key": "UserFirstName",
+			"value": ""
+		},
+		{
+			"key": "UserLastName",
+			"value": ""
+		},
+		{
+			"key": "UserMiddleName",
+			"value": ""
+		},
+		{
+			"key": "UserComments",
+			"value": ""
+		},
+		{
+			"key": "UserEduPg",
+			"value": ""
+		},
+		{
+			"key": "UserEduUg",
+			"value": ""
+		},
+		{
+			"key": "UserLinkedinUrl",
+			"value": ""
+		},
+		{
+			"key": "LoginStatus",
+			"value": ""
+		},
+		{
+			"key": "Password",
+			"value": ""
+		},
+		{
+			"key": "UserRoleStatus",
+			"value": ""
+		},
+		{
+			"key": "NewRoleId",
+			"value": ""
+		}
+	]
+}

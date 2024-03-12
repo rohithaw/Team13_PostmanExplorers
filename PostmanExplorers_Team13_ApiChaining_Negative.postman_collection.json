@@ -1,0 +1,2903 @@
+{
+	"info": {
+		"_postman_id": "641444e4-ff0a-4d74-a78a-8d7ee7f86e72",
+		"name": "PostmanExplorers_Team13_ApiChaining_Negative",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33411593",
+		"_collection_link": "https://numpy-api-user-learners.postman.co/workspace/PostmanExplorers-Workspace~457da250-7b22-4759-971f-e03c6656e343/collection/33411593-641444e4-ff0a-4d74-a78a-8d7ee7f86e72?action=share&source=collection_link&creator=33411593"
+	},
+	"item": [
+		{
+			"name": "AdminLogin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData=JSON.parse(responseBody);",
+							"pm.environment.set(\"token\",jsonData.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"password\": \"{{password}}\",\n  \"userLoginEmailId\": \"{{UserLoginEmailID}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AdminLoginURL}}",
+					"host": [
+						"{{AdminLoginURL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegAdminLogin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", ()=> {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is present\",()=> {",
+							" pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is application json\",()=> {",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');",
+							"});",
+							"\t\t\t\t\t\t\t\t\t",
+							"pm.test(\"Response time is less than 1000ms\",()=>{",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"password\": \" \",\n  \"userLoginEmailId\": \" \"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AdminLoginURL}}",
+					"host": [
+						"{{AdminLoginURL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Sign In invalid username",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 401\", ()=> {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is present\",()=> {",
+							" pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is application json\",()=> {",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');",
+							"});",
+							"\t\t\t\t\t\t\t\t\t",
+							"pm.test(\"Response time is less than 1000ms\",()=>{",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n  \"password\": \"ninja@1\",\r\n  \"userLoginEmailId\": \"sdeto5@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/login",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Sign In invalid password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 401\", ()=> {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is present\",()=> {",
+							" pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is application json\",()=> {",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');",
+							"});",
+							"\t\t\t\t\t\t\t\t\t",
+							"pm.test(\"Response time is less than 1000ms\",()=>{",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n  \"password\": \"Numpy@16\",\r\n  \"userLoginEmailId\": \"sdet5@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/login",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegCreateProgByInvalidProgName",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {\r",
+							"    pm.response.to.have.status(400);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('Bad Request');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"programDescription\": \"{{programDescription}}\",\r\n   \"programName\": \"{{Invalidprogramname}}\",\r\n  \"programStatus\": \"{{programStatus}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/saveprogram",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"saveprogram"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegCreatProgBySameName",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							"var progName= '{{programname}}' ;\r",
+							"pm.variables.set(\"programname\", progName);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {\r",
+							"    pm.response.to.have.status(400);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('Bad Request');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"programDescription\": \"{{programDescription}}\",\r\n   \"programName\": \"{{programname}}\",\r\n  \"programStatus\": \"Active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/saveprogram",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"saveprogram"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegCreateProgByMissingName",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var progName= \"               \";\r",
+							"pm.globals.set(\"programname\", progName);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {\r",
+							"    pm.response.to.have.status(400);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('Bad Request');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"programDescription\": \"{{programDescription}}\",\r\n   \"programName\": \"{{programname}}\",\r\n  \"programStatus\": \"{{programStatus}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/saveprogram",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"saveprogram"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegCreateProgByMissingStatus",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var progName= \"March24-PostmanExplorers-SDET-\" + pm.variables.replaceIn(\"{{$randomInt}}\");\r",
+							"pm.globals.set(\"programname\", progName);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {\r",
+							"    pm.response.to.have.status(400);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('Bad Request');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"programDescription\": \"{{programDescription}}\",\r\n   \"programName\": \"{{programname}}\",\r\n  \"programStatus\": \"     \"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/saveprogram",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"saveprogram"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegCreateProgByInvalidStatus",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {\r",
+							"    pm.response.to.have.status(400);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('Bad Request');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"programDescription\": \"{{programDescription}}\",\r\n   \"programName\": \"{{programname}}\",\r\n  \"programStatus\": \"643874 \"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/saveprogram",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"saveprogram"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegCreateWithNullStatus",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 500', () => {\r",
+							"    pm.response.to.have.status(500);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('Internal Server Error');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"programDescription\": \"{{programDescription}}\",\r\n   \"programName\": \"{{programname}}\",\r\n  \"programStatus\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/saveprogram",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"saveprogram"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegCreateByMissingDesc",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {\r",
+							"    pm.response.to.have.status(400);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('Bad Request');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"programDescription\": \"     \",\r\n   \"programName\": \"{{programname}}\",\r\n  \"programStatus\": \"Active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/saveprogram",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"saveprogram"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegCreateByInvalidDesc",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {\r",
+							"    pm.response.to.have.status(400);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('Bad Request');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"programDescription\": \"32@27492\",\r\n   \"programName\": \"{{programname}}\",\r\n  \"programStatus\": \"Active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/saveprogram",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"saveprogram"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegCreateByNullDesc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {\r",
+							"    pm.response.to.have.status(400);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('Bad Request');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"programDescription\": null,\r\n   \"programName\": \"{{programname}}\",\r\n  \"programStatus\": \"Active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/saveprogram",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"saveprogram"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegCreateByNullProgramName",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 500', () => {\r",
+							"    pm.response.to.have.status(500);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('Internal Server Error');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"programDescription\": \"{{programDescription}}\",\r\n   \"programName\": null,\r\n  \"programStatus\": \"{{programStatus}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/saveprogram",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"saveprogram"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegGetByInvalidProgramID",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var invalidProgramId = '8654' + pm.variables.replaceIn(\"{{$randomInt}}\");\r",
+							"pm.collectionVariables.set(\"ProgramIdI\", invalidProgramId);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", ()=> {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check Status Text\",()=> {\r",
+							"    pm.response.to.have.status('Not Found');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is present\",()=> {\r",
+							" pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is application json\",()=> {\r",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');\r",
+							"});\r",
+							"\t\t\t\t\t\t\t\t\t\r",
+							"pm.test(\"Response time is less than 1000ms\",()=>{\r",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/programs/{{ProgramIdI}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"programs",
+						"{{ProgramIdI}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegUpdateByInvalidProgName",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var progName= \" $%4575757\" + pm.variables.replaceIn(\"{{$randomInt}}\");\r",
+							"pm.globals.set(\"Invalidprogramname\", progName);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {\r",
+							"    pm.response.to.have.status(400);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('Bad Request');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"programDescription\": \"{{programDescription}}\",\r\n   \"programName\": \"{{Invalidprogramname}}\",\r\n  \"programStatus\": \"{{programStatus}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/program/{{programname}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"program",
+						"{{programname}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegUpdateByMissingProgName",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var progName= \"           \";\r",
+							"pm.globals.set(\"programname\", progName);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {\r",
+							"    pm.response.to.have.status(400);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('Bad Request');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"programDescription\": \"{{programDescription}}\",\r\n   \"programName\": \"{{programname}}\",\r\n  \"programStatus\": \"{{programStatus}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/program/{{programname}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"program",
+						"{{programname}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegUpdateByNullProgName_check",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var progName=null;\r",
+							"pm.globals.set(\"programName\", progName);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 404', () => {\r",
+							"    pm.response.to.have.status(404);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('Not Found');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"programDescription\": \"{{programDescription}}\",\r\n   \"programName\": \"{{programName}}\",\r\n  \"programStatus\": \"Active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/program/{{programname}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"program",
+						"{{programname}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegUpdateProgStatusNull",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 500', () => {\r",
+							"    pm.response.to.have.status(500);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('Internal Server Error');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"programDescription\": \"{{programDescription}}\",\r\n   \"programName\": \"{{programname}}\",\r\n  \"programStatus\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/program/{{programname}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"program",
+						"{{programname}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegUpdateByInvalidProgStatus",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {\r",
+							"    pm.response.to.have.status(400);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('Bad Request');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"programDescription\": \"{{programDescription}}\",\r\n   \"programName\": \"{{programname}}\",\r\n  \"programStatus\": \"1734893&*\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/program/{{programname}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"program",
+						"{{programname}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegUpdateByMissingProgNameUsingProgID",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {\r",
+							"    pm.response.to.have.status(400);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('Bad Request');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"programDescription\": \"{{programDescription}}\",\r\n   \"programName\": \"            \",\r\n  \"programStatus\": \"{{programStatus}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/putprogram/{{programId}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"putprogram",
+						"{{programId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegUpdateInvalidProgramID",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 404', () => {\r",
+							"    pm.response.to.have.status(404);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('Not Found');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"programDescription\": \"{{programDescription}}\",\r\n   \"programName\": \"{{programName}}\",\r\n  \"programStatus\": \"Active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/program/{{ProgramIdI}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"program",
+						"{{ProgramIdI}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegCreateNewBatchwithinvalidProgramID",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var batchName= \"March24-PostmanExplorers-SDET-SDET01-\" + pm.variables.replaceIn(\"{{$randomInt}}\");\r",
+							"pm.globals.set(\"BatchName\", batchName);\r",
+							"\r",
+							"var invalidprogrameId=  124          ;\r",
+							"pm.globals.set(\"invalidprogrameId\", invalidprogrameId);\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {\r",
+							"    pm.response.to.have.status(400);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('Bad Request');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"batchDescription\": \"{{batchDescription}}\",\r\n  \"batchName\": \"{{batchName}}\",\r\n  \"batchNoOfClasses\": {{batchNoOfClasses}},\r\n  \"batchStatus\": \"{{batchStatus}}\",\r\n  \"programId\":{{invalidprogrameId}}\r\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/batches",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"batches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegCreateBatchNamewithinvalidBatchstatus",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var batchName= \"March24-PostmanExplorers-SDET-SDET01-\" + pm.variables.replaceIn(\"{{$randomInt}}\");\r",
+							"pm.globals.set(\"BatchName\", batchName);\r",
+							"\r",
+							"var invalidBatchStatus=  \"abc  \"      ;\r",
+							"pm.globals.set(\" invalidBatchStatus\",  invalidBatchStatus);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {\r",
+							"    pm.response.to.have.status(400);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('Bad Request');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"batchDescription\": \"{{batchDescription}}\",\r\n  \"batchName\": \"{{batchName}}\",\r\n  \"batchNoOfClasses\": {{batchNoOfClasses}},\r\n  \"batchStatus\": {{invalidBatchStatus}},\r\n  \"programId\": {{programId}}\r\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/batches",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"batches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegCreating a Batch with invalid No of classes status",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var batchName = \"March24-PostmanExplorers-SDET-SDET01-\" + pm.variables.replaceIn(\"{{$randomInt}}\");\r",
+							"pm.globals.set(\"BatchName\", batchName);\r",
+							"\r",
+							"var invalidnoofclassstatus=  \"0  \"      ;\r",
+							"pm.globals.set(\" invalidnoofclassstatus\",  invalidnoofclassstatus);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {\r",
+							"    pm.response.to.have.status(400);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('Bad Request');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"batchDescription\": \"{{batchDescription}}\",\r\n  \"batchName\": \"{{batchName}}\",\r\n  \"batchNoOfClasses\":{{invalidnoofclassstatus}},\r\n  \"batchStatus\": \"{{batchStatus}}\",\r\n  \"programId\": {{programId}}\r\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/batches",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"batches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegCreating a Batch with void all fields",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {\r",
+							"    pm.response.to.have.status(400);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('Bad Request');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"batchDescription\": \"\",\r\n  \"batchName\": \"\",\r\n  \"batchNoOfClasses\": \"\",\r\n  \"batchStatus\": \"\",\r\n  \"programId\": \"\"\r\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/batches",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"batches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegBatchbyInvalidProgramId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 404', () => {\r",
+							"    pm.response.to.have.status(404);\r",
+							"})\r",
+							"\r",
+							"// Removed redundant status text test\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/batches/program/{{invalidprogrameId}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"batches",
+						"program",
+						"{{invalidprogrameId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegBatchbyInvaidBatchID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 404', () => {\r",
+							"    pm.response.to.have.status(404);\r",
+							"})\r",
+							"\r",
+							"// Removed redundant status text test\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/batches/batchId/{{invalidbatchId}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"batches",
+						"batchId",
+						"{{invalidbatchId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegBatchbyInvalidBatchName",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 404', () => {\r",
+							"    pm.response.to.have.status(404);\r",
+							"})\r",
+							"\r",
+							"// Removed redundant status text test\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/batches/batchName/{{BatchName}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"batches",
+						"batchName",
+						"{{BatchName}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegUpdateBatchByInvalidBATCHID_Check once",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {\r",
+							"    pm.response.to.have.status(400);\r",
+							"})\r",
+							"\r",
+							"pm.test('Check Status Text', () => {\r",
+							"    pm.response.to.have.status('Bad Request');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"batchDescription\": \"{{batchDescription}}\",\r\n  \"batchId\": {{invalidbatchId}},\r\n  \"batchName\": \"{{batchName}}\",\r\n  \"batchNoOfClasses\": {{batchNoOfClasses}},\r\n  \"batchStatus\": \"{{batchStatus}}\",\r\n  \"programId\": {{programId}}\r\n }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/batches/{{invalidbatchId}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"batches",
+						"{{invalidbatchId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegGetUserInfobyInvalidUserId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 404', () => {",
+							"    pm.response.to.have.status(404);",
+							"})",
+							"",
+							"pm.test('Check Status Text', () => {",
+							"    pm.response.to.have.status('Not Found');",
+							"})",
+							"",
+							"pm.test('Content-Type Header is present', () => {",
+							"    pm.response.to.have.header('Content-Type');",
+							"})",
+							"",
+							"pm.test('Content-Type Header is application json', () => {",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.include('text/html');",
+							"})",
+							"",
+							"pm.test('Response time is less than 1000ms', () => {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}users/{{userId}}",
+					"host": [
+						"{{BaseURL}}users"
+					],
+					"path": [
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegUserCreatebyPhonenumber",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var random=Math.random().toString(36).substring(2);\r",
+							"var useremail=\"jim\"+random+\"@gmail.com\";\r",
+							"pm.environment.set(\"email_env\",useremail);\r",
+							"//pm.environment.set (\"phone_env\",_.random (10000000000,100));\r",
+							"    \r",
+							"let roleids = pm.collectionVariables.get(\"roleids\");\r",
+							"if(!roleids || roleids.length == 0) {\r",
+							"    roleids = [\"R01\", \"R02\",  \"R03\"];\r",
+							"}\r",
+							"let currentroleid = roleids.shift();\r",
+							"pm.collectionVariables.set(\"roleid\", currentroleid);\r",
+							"pm.collectionVariables.set(\"roleids\", roleids);\r",
+							"\r",
+							"let userVisaStatuses = pm.collectionVariables.get(\"userVisaStatuses\");\r",
+							"if(!userVisaStatuses || userVisaStatuses.length == 0) {\r",
+							"    userVisaStatuses = [\"Not-Specified\", \"NA\", \"GC-EAD\", \"H4-EAD\", \"H4\",\"H1B\", \"Canada-EAD\", \"Indian-Citizen\", \"US-Citizen\", \"Canada-Citizen\"];\r",
+							"}\r",
+							"let currentuserVisaStatus = userVisaStatuses.shift();\r",
+							"pm.collectionVariables.set(\"UserVisaStatus\", currentuserVisaStatus);\r",
+							"pm.collectionVariables.set(\"userVisaStatuses\", userVisaStatuses);\r",
+							"\r",
+							"let userTimeZones = pm.collectionVariables.get(\"userTimeZones\");\r",
+							"if(!userTimeZones || userTimeZones.length == 0) {\r",
+							"    userTimeZones = [\"PST\", \"MST\", \"CST\", \"EST\", \"IST\"];\r",
+							"}\r",
+							"let currentuserTimeZone = userTimeZones.shift();\r",
+							"pm.collectionVariables.set(\"UserTimeZone\", currentuserTimeZone);\r",
+							"pm.collectionVariables.set(\"userTimeZones\", userTimeZones);\r",
+							"\r",
+							"let userLocations = pm.collectionVariables.get(\"userLocations\");\r",
+							"if(!userLocations || userLocations.length == 0) {\r",
+							"    userLocations = [\"TEXAS\", \"MAINE\",  \"NJ\",\"NewYork\"];\r",
+							"}\r",
+							"let currentuserLocation = userLocations.shift();\r",
+							"pm.collectionVariables.set(\"UserLocation\", currentuserLocation);\r",
+							"pm.collectionVariables.set(\"userLocations\", userLocations);\r",
+							"\r",
+							"pm.collectionVariables.set(\"phone_env\", \"0124345678\" );\r",
+							"pm.collectionVariables.set(\"status\", \"Active\" );\r",
+							"pm.collectionVariables.set(\"UserFirstName\", \"PostmanExplorers\" );\r",
+							"pm.collectionVariables.set(\"UserLastName\", \"Team\" );\r",
+							"pm.collectionVariables.set(\"UserMiddleName\", \"Fantastic\" );\r",
+							"pm.collectionVariables.set(\"UserComments\", \"Creating Roles\" );\r",
+							"pm.collectionVariables.set(\"UserEduPg\", \"Mtech\" );\r",
+							"pm.collectionVariables.set(\"UserEduUg\", \"Btech\" );\r",
+							"pm.collectionVariables.set(\"UserLinkedinUrl\",\"https://www.linkedin.com/in/PostmanExplorers Admin/\" );\r",
+							"//pm.collectionVariables.set(\"UserLocation\", \"Texas\" );\r",
+							"pm.collectionVariables.set(\"LoginStatus\", \"Active\" );\r",
+							"pm.collectionVariables.set(\"Password\", \"adminteam13\" );\r",
+							"pm.collectionVariables.set(\"UserRoleStatus\", \"Active\" );\r",
+							"\r",
+							"//pm.collectionVariables.set(\"Id\", \"1362\");\r",
+							"//var roleids = [ R01, R02,R03];\r",
+							"//pm.environment.set('roleids', JSON.stringify(roleids));\r",
+							"//let roleids = JSON.parse(pm.environment.get('roleids'));\r",
+							"/*let roleId = pm.environment.get(\"roleId\");\r",
+							"if (!roleId) {\r",
+							"    roleId = \"00\";\r",
+							"roleId++;\r",
+							"roleId = roleId.toString().padStart(2, \"0\");\r",
+							"pm.environment.set(\"roleId\", roleId);\r",
+							"const prefix ='R'; \r",
+							"const result = prefix + roleId;\r",
+							"pm.variables.set(\"roleid\", result);\r",
+							"//var userphone=\"+91 97361525\"+random(2);\r",
+							"//pm.environment.set(\"name_env\",username);\r",
+							"//pm.environment.set(\"phone_env\",userphone);\r",
+							"//var username= \"PostmanExplorer\" + pm.variables.replaceIn(\"{{$randomFirstName}}\");\r",
+							"//pm.globals.set(\"name_env\", username);\r",
+							"//var userphone= \" \" + pm.variables.replaceIn(\"{{$$randomPhoneNumberExt}}\");\r",
+							"//pm.globals.set(\"phone_env\", userphone);\r",
+							"//var username=\" PostmanExplorer\"+pm.variables.replaceIn(\"{{$randomFirstName}}\");*/"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData=JSON.parse(responseBody);\r",
+							"var USERID=jsonData.userId;\r",
+							"pm.environment.set(\"userId_env\",USERID);\r",
+							"console.log(USERID);\r",
+							"\r",
+							"pm.test('Status code is 400', () => {\r",
+							"    pm.response.to.have.status(400);\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is present', () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"})\r",
+							"\r",
+							"pm.test('Content-Type Header is application json', () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"})\r",
+							"\r",
+							"pm.test('Response time is less than 1000ms', () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userComments\": \"{{UserComments}}\",\r\n  \"userEduPg\": \"{{UserEduPg}}\",\r\n  \"userEduUg\": \"{{UserEduUg}}\",\r\n  \"userFirstName\": \"{{UserFirstName}}\",\r\n  \"userId\": \"string\",\r\n  \"userLastName\": \"{{UserLastName}}\",\r\n  \"userLinkedinUrl\": \"{{UserLinkedinUrl}}\",\r\n  \"userLocation\": \"{{UserLocation}}\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"{{LoginStatus}}\",\r\n    \"password\": \"{{Password}}\",\r\n    \"roleIds\": [\r\n      \"string\"\r\n    ],\r\n    \"status\": \"{{status}}\",\r\n    \"userLoginEmail\": \"{{email_env}}\"\r\n          },\r\n  \"userMiddleName\": \"{{UserMiddleName}}\",\r\n  \"userPhoneNumber\": \"\",\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"{{roleid}}\",\r\n      \"userRoleStatus\": \"{{UserRoleStatus}}\"\r\n    }\r\n  ],\r\n  \"userTimeZone\": \"{{UserTimeZone}}\",\r\n  \"userVisaStatus\": \"{{UserVisaStatus}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users/roleStatus",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"roleStatus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegUpdateUserwithInvalidFields",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", ()=> {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is present\",()=> {\r",
+							" pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is application json\",()=> {\r",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');\r",
+							"});\r",
+							"\t\t\t\t\t\t\t\t\t\r",
+							"pm.test(\"Response time is less than 1000ms\",()=>{\r",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userComments\": \"{{UserComments}}\",\r\n  \"userEduPg\": \"{{UserEduPg}}\",\r\n  \"userEduUg\": \"{{UserEduUg}}\",\r\n  \"userFirstName\": \"{{UserFirstName}}\"\r\n  \"userId\": \"string\",\r\n  \"userLastName\": \"{{UserLastName}}\",\r\n  \"userLinkedinUrl\": \"{{UserLinkedinUrl}}\",\r\n  \"userLocation\": \"{{UserLocation}}\",\r\n    \"userMiddleName\": \"{{UserMiddleName}}\",\r\n  \"userPhoneNumber\": \"{{}}\",\r\n  \"userTimeZone\": \"{{UserTimeZone}}\",\r\n  \"userVisaStatus\": \"{{UserVisaStatus}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users/{{userId}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegUpdateUserRoleStatus",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"updateRoleStatus\",\"Inactive\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", ()=> {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is present\",()=> {",
+							" pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is application json\",()=> {",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');",
+							"});",
+							"\t\t\t\t\t\t\t\t\t",
+							"pm.test(\"Response time is less than 1000ms\",()=>{",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"roleId\": \"{{NewRoleId}}\",\n  \"userRoleStatus\": \"{{updateRoleStatus}}\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users/roleStatus/{{InvalidUserID}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"roleStatus",
+						"{{InvalidUserID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegUpdateUserRoleID",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let roleids = pm.collectionVariables.get(\"roleids\");",
+							"if(!roleids || roleids.length == 0) {",
+							"    roleids = [\"R02\", \"R03\",  \"R01\"];",
+							"}",
+							"let currentroleid = roleids.shift();",
+							"pm.collectionVariables.set(\"NewRoleId\", currentroleid);",
+							"//pm.collectionVariables.set(\"roleids\", roleids);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", ()=> {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is present\",()=> {",
+							" pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is application json\",()=> {",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');",
+							"});",
+							"\t\t\t\t\t\t\t\t\t",
+							"pm.test(\"Response time is less than 1000ms\",()=>{",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userRoleList\": [\n    \"{{NewRoleId}}\"\n    ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users/roleId/{{InvalidUserID}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"roleId",
+						"{{InvalidUserID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegUpdateUserRoleIDExistingRoleID",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"InvalidRoleId\",\"R04\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", ()=> {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is present\",()=> {",
+							" pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is application json\",()=> {",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');",
+							"});",
+							"\t\t\t\t\t\t\t\t\t",
+							"pm.test(\"Response time is less than 1000ms\",()=>{",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userRoleList\": [\n    \"{{InvalidRoleId}}\"\n    ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users/roleId/{{userId}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"roleId",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegUpdateUserRoleBatchProgStatus",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", ()=> {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is present\",()=> {",
+							" pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is application json\",()=> {",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');",
+							"});",
+							"\t\t\t\t\t\t\t\t\t",
+							"pm.test(\"Response time is less than 1000ms\",()=>{",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"programId\": {{programId}},\n  \"roleId\": \"{{roleid}}\",\n  \"userId\": \"string\",\n  \"userRoleProgramBatches\": [\n    {\n      \"batchId\": {{NewbatchId}},\n      \"userRoleProgramBatchStatus\": \"Active\"\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users/roleProgramBatchStatus/{{InvalidUserID}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"roleProgramBatchStatus",
+						"{{InvalidUserID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegUpdateUserRoleBatchProgStatusInvalidData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", ()=> {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is present\",()=> {",
+							" pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is application json\",()=> {",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');",
+							"});",
+							"\t\t\t\t\t\t\t\t\t",
+							"pm.test(\"Response time is less than 1000ms\",()=>{",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"programId\": {{programId}},\n  \"roleId\": \"\",\n  \"userId\": \"string\",\n  \"userRoleProgramBatches\": [\n    {\n      \"batchId\": {{NewbatchId}},\n      \"userRoleProgramBatchStatus\": \"Active\"\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users/roleProgramBatchStatus/{{userId_env}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"roleProgramBatchStatus",
+						"{{userId_env}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegUpdateUserLoginStatus",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var random=Math.random().toString(36).substring(2);",
+							"var useremail=\"Team13\"+random+\"@gmail.com\";",
+							"pm.environment.set(\"NewemailId\",useremail);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", ()=> {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is present\",()=> {",
+							" pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is application json\",()=> {",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');",
+							"});",
+							"\t\t\t\t\t\t\t\t\t",
+							"pm.test(\"Response time is less than 1000ms\",()=>{",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"loginStatus\": \"Active\",\n  \"password\": \"staffteam13\",\n  \"roleIds\": [\n    \"string\"\n  ],\n  \"status\": \"Active\",\n  \"userLoginEmail\": \"{{NewemailId}}\"\n}\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users/userLogin/{{InvalidUserID}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"userLogin",
+						"{{InvalidUserID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegUpdateUserLoginStatusMissingBodyDetails",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var random=Math.random().toString(36).substring(2);",
+							"var useremail=\"Team13\"+random+\"@gmail.com\";",
+							"pm.environment.set(\"NewemailId\",useremail);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", ()=> {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is present\",()=> {",
+							" pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is application json\",()=> {",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');",
+							"});",
+							"\t\t\t\t\t\t\t\t\t",
+							"pm.test(\"Response time is less than 1000ms\",()=>{",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"loginStatus\": \"{{LoginStatus}}\",\n  \"password\": \"{{UpdatePassword}}\",\n  \"roleIds\": [\n    \"string\"\n  ],\n  \"status\": \"{{status}}\",\n  \"userLoginEmail\": \" \"\n}\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users/userLogin/{{userId_env}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"userLogin",
+						"{{userId_env}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegGetAssignedProgBatchbyUserID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", ()=> {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is present\",()=> {",
+							" pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is application json\",()=> {",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');",
+							"});",
+							"\t\t\t\t\t\t\t\t\t",
+							"pm.test(\"Response time is less than 1000ms\",()=>{",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/userRoleProgramBatchMap/{{InvalidUserID}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"userRoleProgramBatchMap",
+						"{{InvalidUserID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegDelProgBatchbyUserID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", ()=> {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is present\",()=> {",
+							" pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header is application json\",()=> {",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');",
+							"});",
+							"\t\t\t\t\t\t\t\t\t",
+							"pm.test(\"Response time is less than 1000ms\",()=>{",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/userRoleProgramBatchMap/deleteAll/{{InvalidUserID}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"userRoleProgramBatchMap",
+						"deleteAll",
+						"{{InvalidUserID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegDeleteUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", ()=> {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is present\",()=> {\r",
+							" pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is application json\",()=> {\r",
+							"\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');\r",
+							"});\r",
+							"\t\t\t\t\t\t\t\t\t\r",
+							"pm.test(\"Response time is less than 1000ms\",()=>{\r",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://lms-marchapi-hackathon-a258d2bbd43b.herokuapp.com/lms/users/{{InvalidUserID}}",
+					"protocol": "https",
+					"host": [
+						"lms-marchapi-hackathon-a258d2bbd43b",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"lms",
+						"users",
+						"{{InvalidUserID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegDeleteprogramBynvalidPId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", ()=> {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check Status Text\",()=> {\r",
+							"    pm.response.to.have.status('Not Found');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is present\",()=> {\r",
+							" pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"//pm.test(\"Content-Type Header is application json\",()=> {\r",
+							"//\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');\r",
+							"//});\r",
+							"\t\t\t\t\t\t\t\t\t\r",
+							"pm.test(\"Response time is less than 1000ms\",()=>{\r",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}} /deletebyprogid/{{invalidprogrameId}}",
+					"host": [
+						"{{BaseURL}} "
+					],
+					"path": [
+						"deletebyprogid",
+						"{{invalidprogrameId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DelInvalidProgName",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", ()=> {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check Status Text\",()=> {\r",
+							"    pm.response.to.have.status('Not Found');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type Header is present\",()=> {\r",
+							" pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"//pm.test(\"Content-Type Header is application json\",()=> {\r",
+							"//\tpm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('application/json');\r",
+							"//});\r",
+							"\t\t\t\t\t\t\t\t\t\r",
+							"pm.test(\"Response time is less than 1000ms\",()=>{\r",
+							"\tpm.expect(pm.response.responseTime).to.be.below(3000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/deletebyprogname/{{Invalidprogramname}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"deletebyprogname",
+						"{{Invalidprogramname}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "ProgramIdI",
+			"value": ""
+		},
+		{
+			"key": "roleid",
+			"value": ""
+		},
+		{
+			"key": "roleids",
+			"value": ""
+		},
+		{
+			"key": "UserVisaStatus",
+			"value": ""
+		},
+		{
+			"key": "userVisaStatuses",
+			"value": ""
+		},
+		{
+			"key": "UserTimeZone",
+			"value": ""
+		},
+		{
+			"key": "userTimeZones",
+			"value": ""
+		},
+		{
+			"key": "UserLocation",
+			"value": ""
+		},
+		{
+			"key": "userLocations",
+			"value": ""
+		},
+		{
+			"key": "phone_env",
+			"value": ""
+		},
+		{
+			"key": "status",
+			"value": ""
+		},
+		{
+			"key": "UserFirstName",
+			"value": ""
+		},
+		{
+			"key": "UserLastName",
+			"value": ""
+		},
+		{
+			"key": "UserMiddleName",
+			"value": ""
+		},
+		{
+			"key": "UserComments",
+			"value": ""
+		},
+		{
+			"key": "UserEduPg",
+			"value": ""
+		},
+		{
+			"key": "UserEduUg",
+			"value": ""
+		},
+		{
+			"key": "UserLinkedinUrl",
+			"value": ""
+		},
+		{
+			"key": "LoginStatus",
+			"value": ""
+		},
+		{
+			"key": "Password",
+			"value": ""
+		},
+		{
+			"key": "UserRoleStatus",
+			"value": ""
+		},
+		{
+			"key": "NewRoleId",
+			"value": ""
+		}
+	]
+}

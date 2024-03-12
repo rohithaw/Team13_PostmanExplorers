@@ -1,0 +1,320 @@
+{
+	"id": "e04b2244-3276-45e2-87b5-f8ef04a92f75",
+	"values": [
+		{
+			"key": "Reshma_BaseURL",
+			"value": "https://lms-marchapi-hackathon-a258d2bbd43b.herokuapp.com/lms",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "Login_EmailID",
+			"value": "sdetorganizers@gmail.com",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "Password",
+			"value": "adminteam13",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "Reshma_Token_ForAdmin",
+			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZGV0b3JnYW5pemVyc0BnbWFpbC5jb20iLCJpYXQiOjE3MDk4NDU0MDMsImV4cCI6MTcwOTg3NDIwM30.My_ghPChSjoHouzJKqE4vncg0d7bVBw8z5vHXKbZVXqASeuEzPI3ErgvYdb4b7EY6pzXjrEKNIbBW9foFisE4A",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "Batchdescription",
+			"value": "SDET",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "ProgramName",
+			"value": "SDET_Program",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "prog_Name",
+			"value": "March24-PostmanExplorers-SDET-305",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "programId",
+			"value": 17942,
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "programname",
+			"value": "           ",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UpdateprogName",
+			"value": "March24-PostmanExplorers-SDET-992",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "progName",
+			"value": "March24-PostmanExplorers-SDET-482",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "updatedprogramname",
+			"value": "March24-PostmanExplorers-SDET-39",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Reshma_DataDriven_Token",
+			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZGV0b3JnYW5pemVyc0BnbWFpbC5jb20iLCJpYXQiOjE3MDk5MDk1MTMsImV4cCI6MTcwOTkzODMxM30.dHFQhYAO7lAvbcsFdYqo1zolhHTMhmr6wm2i9oJzCr5LS6qAZ4zewUwkC8uCekmh_f4uU5RNTKymy-6KrdIEAg",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "name_env",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "phone_env",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "BatchName",
+			"value": "March24-PostmanExplorers-SDET-SDET01-48",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "batchId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "batchName",
+			"value": "March24-PostmanExplorers-SDET-SDET{{$randomInt}}-211",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "programDescription",
+			"value": "postman13",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "programStatus",
+			"value": "Active",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Invalidprogramname",
+			"value": " $%4575757454",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "{{password}}",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "programName",
+			"value": null,
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "userId",
+			"value": "U1853",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "batchNoofClasses",
+			"value": 10,
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "batchDescription",
+			"value": "Description for DA",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "invalidprogrameId",
+			"value": 124,
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "invalidBatchStatus",
+			"value": "abc  ",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "invalidnoofclassstatus",
+			"value": "0",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "invalidbatchId",
+			"value": 124,
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "NewBatchDescription",
+			"value": "Description for SDET",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UpdatebatchName",
+			"value": "March24-PostmanExplorers-SDET-SDET01-603",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "NewRoleId",
+			"value": "R03",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "updateRoleStatus",
+			"value": "Inactive",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "programId_dd",
+			"value": 17961,
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "programname_dd",
+			"value": "March24-PostmanExplorers-SDET3-1313",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": " invalidBatchStatus",
+			"value": "abc  ",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": " invalidnoofclassstatus",
+			"value": "0  ",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "InvalidRoleId",
+			"value": "R04",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UserLocation",
+			"value": "CALIFORNIA",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "userLocations",
+			"value": [
+				"TEXAS",
+				"NewYork",
+				"ARIZONA",
+				"DELHI"
+			],
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "status",
+			"value": "Active",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UserFirstName",
+			"value": "PostmanExplorers_001",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UserLastName",
+			"value": "Team",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UserMiddleName",
+			"value": "Fantastic",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UserComments",
+			"value": "Creating Roles",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UserEduPg",
+			"value": "Mtech",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UserEduUg",
+			"value": "Btech",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UserLinkedinUrl",
+			"value": "https://www.linkedin.com/in/PostmanExplorers",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "LoginStatus",
+			"value": "Active",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UserRoleStatus",
+			"value": "Active",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"name": "Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2024-03-12T04:45:54.273Z",
+	"_postman_exported_using": "Postman/10.23.12"
+}
